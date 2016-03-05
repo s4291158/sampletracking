@@ -2,6 +2,12 @@ from django.db import models
 from django.utils import timezone
 from geoposition.fields import GeopositionField
 
+STATUS_CHOICES = [
+    (1, 'somewhere'),
+    (2, 'bin'),
+    (3, 'lab'),
+]
+
 
 class Project(models.Model):
     name = models.CharField(max_length=200)
@@ -56,15 +62,11 @@ class LogEntry(models.Model):
     bin = models.ForeignKey(Bin, on_delete=models.CASCADE, null=True, blank=True)
     lab = models.ForeignKey(Lab, on_delete=models.CASCADE, null=True, blank=True)
 
-    STATUS_CHOICES = [
-        (1, 'somewhere'),
-        (2, 'bin'),
-        (3, 'lab'),
-    ]
     status = models.IntegerField(choices=STATUS_CHOICES, default=1)
 
     time = models.DateTimeField(default=timezone.now)
-    geo = GeopositionField(null=True)
+    lat = models.FloatField()
+    lng = models.FloatField()
 
     def __str__(self):
         return str(self.id) + ' - sample' + str(self.sample.id)
