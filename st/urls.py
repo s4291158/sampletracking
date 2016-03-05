@@ -3,6 +3,7 @@ from django.views.generic import TemplateView
 
 from . import views
 
-app_name = 'a'
+app_name = 'st'
 urlpatterns = [
+    url(r'^$', views.index, name='index'),
 ]
