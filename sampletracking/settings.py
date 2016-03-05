@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'geoposition',
+    'django_tables2',
 ]
 
 MIDDLEWARE_CLASSES = [

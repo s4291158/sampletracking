@@ -12,3 +12,16 @@ class LogEntrySerializer(serializers.Serializer):
     time = serializers.DateTimeField(default=timezone.now)
     lat = serializers.FloatField(required=False, allow_null=True)
     lng = serializers.FloatField(required=False, allow_null=True)
+
+    def create(self, validated_data):
+        """
+        Create and return a new `Snippet` instance, given the validated data.
+        """
+        print(validated_data['sample_tag'])
+
+        return LogEntry.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        instance.sample_tag = validated_data.get('sample_tag', instance.sample_tag)
+        instance.save()
+        return instance
